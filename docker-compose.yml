@@ -1,0 +1,117 @@
+version: '3.8'
+services:
+  p2p1:
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+      resources:
+        limits:
+          cpus: "0.15"
+          memory: '35M'
+    image: chengscc/huishoutao:v3
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    environment:
+      - use_proxy=true
+      - socks=socks5 198.23.221.164 5040
+    logging:
+      driver: "local"
+      options:
+        max-size: "1m"
+  p2p2:
+    deploy:
+      replicas: 0
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+      resources:
+        limits:
+          cpus: "0.15"
+          memory: '35M'
+    image: chengscc/huishoutao:v3
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    depends_on:
+      - p2p1
+    environment:
+      - use_proxy=true
+      - socks=socks5  198.23.221.164 5041
+    logging:
+      driver: "local"
+      options:
+        max-size: "1m"
+  p2p3:
+    deploy:
+      replicas: 0
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+      resources:
+        limits:
+          cpus: "0.15"
+          memory: '35M'
+    image: chengscc/huishoutao:v3
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    depends_on:
+      - p2p2
+    environment:
+      - use_proxy=true
+      - socks=socks5  198.23.221.164 5042
+    logging:
+      driver: "local"
+      options:
+        max-size: "1m"
+  p2p4:
+    deploy:
+      replicas: 0
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+      resources:
+        limits:
+          cpus: "0.15"
+          memory: '35M'
+    image: chengscc/huishoutao:v3
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    depends_on:
+      - p2p3
+    environment:
+      - use_proxy=true
+      - socks=socks5  198.23.221.164 5043
+    logging:
+      driver: "local"
+      options:
+        max-size: "1m"
+  p2p5:
+    deploy:
+      replicas: 0
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+      resources:
+        limits:
+          cpus: "0.15"
+          memory: '35M'
+    image: chengscc/huishoutao:v3
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    depends_on:
+      - p2p4
+    environment:
+      - use_proxy=true
+      - socks=socks5  198.23.221.164 5044
+    logging:
+      driver: "local"
+      options:
+        max-size: "1m"
+
+
